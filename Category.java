@@ -1,10 +1,11 @@
 package com.wang;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class Category {
+public class Category implements Comparable<Category>  {
 
 	// category manager
 	static  HashMap <String, Category> categories = new HashMap<String, Category>();
@@ -38,22 +39,26 @@ public class Category {
 	}
 
 	// get the max expense category
-	static Category getMaxCategory() {
-		float max_vlaue = 0;
-		String max_cat_name = "";
-		for(String cat_name : categories.keySet()) {
-			// get Category object by name
-			Category cat = categories.get(cat_name);
-			// get the max expense category
-			if(cat.isExpense()) {
-				// because expense money is minus value, use the Math.abs function
-				if(Math.abs(cat.getTotalMoney()) > max_vlaue) {
-					max_vlaue = Math.abs(cat.getTotalMoney());
-					max_cat_name = cat_name;
-				}
-			}
-		}
-		return categories.get(max_cat_name);
+//	static Category getMaxCategory() {
+//		float max_vlaue = 0;
+//		String max_cat_name = "";
+//		for(String cat_name : categories.keySet()) {
+//			// get Category object by name
+//			Category cat = categories.get(cat_name);
+//			// get the max expense category
+//			if(cat.isExpense()) {
+//				// because expense money is minus value, use the Math.abs function
+//				if(Math.abs(cat.getTotalMoney()) > max_vlaue) {
+//					max_vlaue = Math.abs(cat.getTotalMoney());
+//					max_cat_name = cat_name;
+//				}
+//			}
+//		}
+//		return categories.get(max_cat_name);
+//	}
+	
+	public static Collection<Category> getCategories() {
+		return categories.values();
 	}
 
 	// relate Transaction with Category
@@ -74,5 +79,11 @@ public class Category {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public int compareTo(Category o) {
+		// TODO Auto-generated method stub
+		return Float.compare(totalMoney, o.getTotalMoney());
 	}
 }

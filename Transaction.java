@@ -57,6 +57,10 @@ public class Transaction {
 		return money;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
 	// judge if transaction includes expense Category
 	public boolean isExpense() {
 		if(this.money < 0) {
